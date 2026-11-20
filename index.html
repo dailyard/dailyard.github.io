@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DAILYARD — Une boucle par jour</title>
+<meta name="description" content="DAILYARD : une boucle de 6,706 km par jour, avant minuit. En courant ou en marchant, seul ou entre amis. Gratuit, sans pub.">
+<meta property="og:title" content="DAILYARD — Une boucle par jour">
+<meta property="og:description" content="6,706 km par jour, avant minuit. En courant ou en marchant. Tout le monde peut le faire.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://dailyard.github.io/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --fond:#FAF9F6; --surface:#F2F1EC; --encre:#2A2A28; --trait:#E2E0D8;
+    --accent:#9ED9BE; --sur-accent:#1E3A2E; --second:#6E6C66; --blanc:#FFFFFF;
+    --r:14px; --max:1080px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--fond);color:var(--encre);font:400 17px/1.65 Inter,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+  a{color:var(--sur-accent)}
+  img{max-width:100%}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 22px}
+  h1,h2,h3{font-weight:700;line-height:1.15;margin:0;letter-spacing:-0.01em}
+  h2{font-size:clamp(28px,4vw,40px);margin-bottom:14px}
+  h3{font-size:19px;font-weight:600;margin-bottom:6px}
+  p{margin:0 0 14px}
+  .eyebrow{display:inline-block;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--sur-accent);background:rgba(158,217,190,.35);padding:5px 12px;border-radius:999px;margin-bottom:16px}
+  .lead{font-size:clamp(18px,2.2vw,21px);color:var(--second);max-width:640px}
+  section{padding:84px 0;border-top:1px solid var(--trait)}
+  .center{text-align:center}
+  .center .lead{margin-left:auto;margin-right:auto}
+
+  /* Barre du haut */
+  .nav{position:sticky;top:0;z-index:10;background:rgba(250,249,246,.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--trait)}
+  .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:62px}
+  .logo{font-weight:800;font-size:19px;letter-spacing:.06em;text-decoration:none;color:var(--encre);display:flex;align-items:center;gap:10px}
+  .logo i{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:9px;background:var(--encre);color:var(--fond);font-style:normal;font-size:15px;letter-spacing:0}
+  .nav ul{display:flex;gap:26px;list-style:none;margin:0;padding:0;font-size:15px}
+  .nav ul a{color:var(--second);text-decoration:none}
+  .nav ul a:hover{color:var(--encre)}
+  @media(max-width:760px){.nav ul{display:none}}
+
+  /* Boutons */
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:14px 22px;border-radius:var(--r);font-weight:600;font-size:16px;text-decoration:none;border:1px solid transparent;transition:background .15s,border-color .15s}
+  .btn-main{background:var(--accent);color:var(--sur-accent)}
+  .btn-main:hover{background:#8BCFB0}
+  .btn-ghost{background:var(--blanc);color:var(--encre);border-color:var(--trait)}
+  .btn-ghost:hover{border-color:var(--second)}
+  .btn-sm{padding:9px 16px;font-size:14px}
+  .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+  .center .ctas{justify-content:center}
+
+  /* Hero */
+  .hero{padding:72px 0 84px;border-top:0}
+  .hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+  .hero h1{font-size:clamp(42px,6.4vw,74px);font-weight:800;letter-spacing:-0.025em;margin-bottom:20px}
+  .hero h1 em{font-style:normal;background:linear-gradient(transparent 62%,var(--accent) 62%);padding:0 4px}
+  .hero .note{font-size:14px;color:var(--second);margin-top:16px}
+  @media(max-width:860px){.hero .wrap{grid-template-columns:1fr}.hero{padding-top:44px}}
+
+  /* Carte « boucle du jour » */
+  .phone{background:var(--blanc);border:1px solid var(--trait);border-radius:28px;padding:22px;max-width:360px;margin:0 auto;width:100%}
+  .phone .top{display:flex;justify-content:space-between;font-size:13px;color:var(--second);margin-bottom:14px}
+  .ring{position:relative;width:200px;height:200px;margin:4px auto 16px}
+  .ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+  .ring .val{position:absolute;inset:0;display:grid;place-content:center;text-align:center}
+  .ring .val b{font-size:38px;font-weight:800;letter-spacing:-0.02em}
+  .ring .val span{font-size:13px;color:var(--second)}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+  .stat{background:var(--surface);border-radius:12px;padding:10px;text-align:center}
+  .stat b{display:block;font-size:18px}
+  .stat span{font-size:12px;color:var(--second)}
+  .phone .tag{margin-top:14px;font-size:13px;text-align:center;color:var(--sur-accent);background:rgba(158,217,190,.35);border-radius:10px;padding:8px}
+
+  /* Étapes */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:40px}
+  .card{background:var(--blanc);border:1px solid var(--trait);border-radius:var(--r);padding:24px}
+  .card .n{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:10px;background:var(--accent);color:var(--sur-accent);font-weight:700;margin-bottom:14px}
+  .card p{color:var(--second);margin:0;font-size:16px}
+  @media(max-width:860px){.steps{grid-template-columns:1fr}}
+
+  /* Marche */
+  .walk{background:var(--surface)}
+  .walk .wrap{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+  .paces{display:grid;gap:12px}
+  .pace{display:flex;align-items:center;justify-content:space-between;background:var(--blanc);border:1px solid var(--trait);border-radius:var(--r);padding:16px 20px}
+  .pace b{font-size:22px;font-weight:700}
+  .pace span{color:var(--second);font-size:15px}
+  .pace .ok{font-size:13px;font-weight:600;color:var(--sur-accent);background:rgba(158,217,190,.45);border-radius:999px;padding:4px 10px}
+  .small{font-size:13px;color:var(--second)}
+  @media(max-width:860px){.walk .wrap{grid-template-columns:1fr}}
+
+  /* Fonctionnalités */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:40px}
+  .feat .ic{width:44px;height:44px;border-radius:12px;background:var(--surface);display:grid;place-items:center;margin-bottom:14px}
+  .feat .ic svg{width:22px;height:22px;stroke:var(--sur-accent);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  @media(max-width:900px){.grid{grid-template-columns:1fr 1fr}}
+  @media(max-width:600px){.grid{grid-template-columns:1fr}}
+
+  /* Esprit */
+  .spirit{background:var(--encre);color:var(--fond);border-top:0}
+  .spirit .lead{color:#C9C6BE}
+  .spirit .eyebrow{background:rgba(158,217,190,.18);color:var(--accent)}
+  .vals{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:40px}
+  .val-c{border:1px solid #45443F;border-radius:var(--r);padding:22px}
+  .val-c h3{color:var(--accent)}
+  .val-c p{color:#C9C6BE;font-size:15px;margin:0}
+  @media(max-width:900px){.vals{grid-template-columns:1fr 1fr}}
+  @media(max-width:560px){.vals{grid-template-columns:1fr}}
+
+  /* Pourquoi 6,706 */
+  .why .wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:48px;align-items:center}
+  .big{font-size:clamp(60px,8.4vw,104px);font-weight:800;letter-spacing:-0.04em;line-height:1;white-space:nowrap}
+  .big small{font-size:.32em;margin-left:6px;font-weight:600;color:var(--second);letter-spacing:0}
+  @media(max-width:860px){.why .wrap{grid-template-columns:1fr}}
+
+  /* FAQ */
+  .faq{max-width:760px;margin:36px auto 0}
+  details{background:var(--blanc);border:1px solid var(--trait);border-radius:var(--r);margin-bottom:10px;padding:0 20px}
+  summary{cursor:pointer;list-style:none;font-weight:600;padding:18px 28px 18px 0;position:relative}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";position:absolute;right:0;top:14px;font-size:22px;font-weight:400;color:var(--second)}
+  details[open] summary::after{content:"−"}
+  details p{color:var(--second);font-size:16px;padding-bottom:6px}
+
+  /* Appel final */
+  .final{background:var(--accent);border-top:0}
+  .final h2{color:var(--sur-accent)}
+  .final .lead{color:#2F5545}
+  .final .btn-main{background:var(--sur-accent);color:var(--fond)}
+  .final .btn-main:hover{background:#163026}
+  .final .btn-ghost{background:transparent;border-color:rgba(30,58,46,.35);color:var(--sur-accent)}
+
+  /* Pied de page */
+  footer{padding:44px 0 56px;font-size:14px;color:var(--second)}
+  footer .wrap{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:32px}
+  footer h4{margin:0 0 10px;font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--encre)}
+  footer ul{list-style:none;margin:0;padding:0}
+  footer li{margin:6px 0}
+  footer a{color:var(--second);text-decoration:none}
+  footer a:hover{color:var(--encre);text-decoration:underline}
+  @media(max-width:700px){footer .wrap{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a class="logo" href="#"><i>D</i>DAILYARD</a>
+    <ul>
+      <li><a href="#concept">Le concept</a></li>
+      <li><a href="#marche">Même en marchant</a></li>
+      <li><a href="#appli">L'appli</a></li>
+      <li><a href="#faq">Questions</a></li>
+    </ul>
+    <a class="btn btn-main btn-sm" href="#rejoindre">Je veux tester</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Bientôt sur Google Play</span>
+      <h1>Une boucle par jour.<br><em>Et c'est tout.</em></h1>
+      <p class="lead">6,706 km à faire avant minuit, où tu veux, quand tu veux, en courant ou en marchant. Pas de chrono à battre, pas de niveau requis : juste une bonne raison de sortir chaque jour.</p>
+      <div class="ctas">
+        <a class="btn btn-main" href="#rejoindre">Devenir testeur</a>
+        <a class="btn btn-ghost" href="#concept">Comment ça marche</a>
+      </div>
+      <p class="note">Gratuit · Sans publicité · Sans achat</p>
+    </div>
+    <div class="phone" aria-label="Exemple d'écran : la boucle du jour">
+      <div class="top"><span>Boucle du jour</span><span>avant 23 h 59</span></div>
+      <div class="ring">
+        <svg viewBox="0 0 120 120" aria-hidden="true">
+          <circle cx="60" cy="60" r="52" stroke="#F2F1EC" stroke-width="10" fill="none"/>
+          <circle cx="60" cy="60" r="52" stroke="#9ED9BE" stroke-width="10" fill="none" stroke-linecap="round" stroke-dasharray="326.7" stroke-dashoffset="98"/>
+        </svg>
+        <div class="val"><b>4,70 km</b><span>sur 6,706 km</span></div>
+      </div>
+      <div class="stats">
+        <div class="stat"><b>23</b><span>jours de suite</span></div>
+        <div class="stat"><b>1</b><span>gel dispo</span></div>
+        <div class="stat"><b>#12</b><span>chez tes amis</span></div>
+      </div>
+      <div class="tag">Encore 2 km : ta série tient bon</div>
+    </div>
+  </div>
+</header>
+
+<section id="concept">
+  <div class="wrap center">
+    <span class="eyebrow">Le concept</span>
+    <h2>Simple comme une balade quotidienne</h2>
+    <p class="lead">Chaque jour, une seule mission : boucler 6,706 km avant minuit. Le lendemain, tout recommence. C'est la régularité qui compte, pas la vitesse.</p>
+    <div class="steps" style="text-align:left">
+      <div class="card"><div class="n">1</div><h3>Ouvre l'appli</h3><p>DAILYARD te propose une boucle sur de vraies rues autour de toi. Tu peux la suivre, ou choisir ton propre chemin.</p></div>
+      <div class="card"><div class="n">2</div><h3>Sors quand tu veux</h3><p>Le matin, à la pause déjeuner, le soir… et même en plusieurs fois. Le compteur s'additionne jusqu'à minuit.</p></div>
+      <div class="card"><div class="n">3</div><h3>Fais grandir ta série</h3><p>Chaque boucle validée ajoute un jour à ta série. Un jour difficile ? Ton gel du mois la protège.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="marche" class="walk">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Ouvert à tous</span>
+      <h2>Même en marchant, ça compte.</h2>
+      <p class="lead">DAILYARD n'est pas réservé aux coureurs. Que tu cours, trottines ou marches d'un bon pas, ta boucle vaut exactement la même chose.</p>
+      <p>Pas besoin d'être sportif, d'avoir une montre GPS ou un plan d'entraînement. Il te faut une paire de baskets, ton téléphone, et l'envie de prendre l'air.</p>
+      <p class="small">La seule règle : bouger dehors, à pied. Tapis de course, vélo et trottinette ne comptent pas.</p>
+    </div>
+    <div class="paces" aria-label="Combien de temps pour une boucle">
+      <div class="pace"><div><b>≈ 1 h 20</b><br><span>en marchant tranquillement (5 km/h)</span></div><span class="ok">Validé</span></div>
+      <div class="pace"><div><b>≈ 58 min</b><br><span>en trottinant (7 km/h)</span></div><span class="ok">Validé</span></div>
+      <div class="pace"><div><b>≈ 40 min</b><br><span>en courant (10 km/h)</span></div><span class="ok">Validé</span></div>
+      <div class="pace"><div><b>3 × 2,3 km</b><br><span>en plusieurs fois dans la journée</span></div><span class="ok">Validé</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="why">
+  <div class="wrap">
+    <div class="big">6,706<small> km</small></div>
+    <div>
+      <span class="eyebrow">Pourquoi ce chiffre ?</span>
+      <h2>Un clin d'œil à l'ultra, à ta portée</h2>
+      <p class="lead">6,706 km, c'est la longueur d'une boucle dans un format de course d'ultra-endurance où l'on repart toutes les heures, jusqu'à ce qu'il ne reste qu'une personne.</p>
+      <p>DAILYARD garde l'idée de la boucle qu'on répète, mais à un rythme humain : une par jour, avec 24 heures pour la faire. Pas besoin d'être un athlète pour vivre ta propre aventure, un jour après l'autre.</p>
+    </div>
+  </div>
+</section>
+
+<section id="appli">
+  <div class="wrap center">
+    <span class="eyebrow">Dans l'appli</span>
+    <h2>Tout pour avoir envie d'y retourner demain</h2>
+    <p class="lead">Des petits défis, des amis, un peu de compétition bon enfant. Et toujours la même boucle, qui devient vite un rendez-vous.</p>
+    <div class="grid" style="text-align:left">
+      <div class="card feat"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3c2 3 5 5 5 9a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-3-1-5 1-8z"/></svg></div><h3>Ta série</h3><p>Le nombre de jours d'affilée avec une boucle. Regarde-la grandir, et essaie de ne pas la casser.</p></div>
+      <div class="card feat"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 2v20M4.9 6.5l14.2 11M19.1 6.5 4.9 17.5M9 4l3 2 3-2M9 20l3-2 3 2"/></svg></div><h3>Le gel du mois</h3><p>Un gel gratuit chaque mois protège ta série si tu rates un jour. Malade, crevé, en voyage : tu souffles, ta série t'attend.</p></div>
+      <div class="card feat"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M14.5 14.2c3.2-.6 6.5 1.6 6.5 5.8"/></svg></div><h3>Courses entre amis</h3><p>Lance une course privée avec un code et vois qui tient le plus longtemps. Ou rejoins une course publique avec d'autres coureurs.</p></div>
+      <div class="card feat"><div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4M12 14l1 2 2 .3-1.5 1.4.4 2.1-1.9-1-1.9 1 .4-2.1L9 16.3l2-.3z"/></svg></div><h3>Le défi du dimanche</h3><p>Chaque dimanche, un petit défi en plus pour pimenter ta boucle. Le gagnant de la semaine choisit l'un des défis suivants.</p></div>
+      <div class="card feat"><div class="ic"><svg viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4v1a3 3 0 0 0 3 3M17 6h3v1a3 3 0 0 1-3 3"/></svg></div><h3>Des classements</h3><p>Entre amis ou dans le monde, par série ou par boucle la plus rapide, avec des filtres par genre, âge et pays.</p></div>
+      <div class="card feat"><div class="ic"><svg viewBox="0 0 24 24"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/></svg></div><h3>Ta boucle toute prête</h3><p>Un itinéraire d'environ 7 km sur de vraies rues, à ouvrir dans Google Maps. Tes boucles s'exportent aussi en fichier GPX.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="spirit">
+  <div class="wrap">
+    <span class="eyebrow">L'esprit DAILYARD</span>
+    <h2>Le sport, c'est d'abord sortir et se faire du bien</h2>
+    <p class="lead">On n'est pas là pour souffrir ni pour se comparer à des pros. On est là pour prendre l'air, se vider la tête et finir la journée avec le sourire.</p>
+    <div class="vals">
+      <div class="val-c"><h3>Dehors</h3><p>Le soleil, la pluie fine, le quartier qu'on redécouvre. La boucle se fait à l'air libre, jamais sur un tapis.</p></div>
+      <div class="val-c"><h3>Pour tout le monde</h3><p>Coureur confirmé ou marcheur du dimanche : même boucle, même série, même fierté.</p></div>
+      <div class="val-c"><h3>Bonne humeur</h3><p>Des amis qui s'encouragent, des défis un peu fous, et de la compétition qui reste amicale.</p></div>
+      <div class="val-c"><h3>À ton écoute</h3><p>Blessé ou malade ? On ne force jamais. Le gel est là pour ça, et ta série t'attendra.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow">Questions</span>
+      <h2>Tu te demandes peut-être…</h2>
+    </div>
+    <div class="faq">
+      <details><summary>C'est vraiment gratuit ?</summary><p>Oui. DAILYARD est gratuit, sans publicité et sans achat dans l'appli.</p></details>
+      <details><summary>Je ne cours pas. Je peux quand même participer ?</summary><p>Bien sûr ! La marche compte exactement comme la course. Compte environ 1 h 20 à pied pour une boucle complète, que tu peux faire en plusieurs fois.</p></details>
+      <details><summary>Et si je n'ai pas le temps de tout faire d'un coup ?</summary><p>Aucun souci : tu peux découper ta boucle dans la journée. Un bout le matin, un bout le soir, tant que le total atteint 6,706 km avant minuit.</p></details>
+      <details><summary>Que se passe-t-il si je rate un jour ?</summary><p>Ton gel du mois protège automatiquement ta série. Et si tu invites des amis, tu peux gagner des gels en plus.</p></details>
+      <details><summary>Le tapis de course compte ?</summary><p>Non. DAILYARD est fait pour te faire sortir : la boucle se fait dehors, à pied, en courant ou en marchant.</p></details>
+      <details><summary>Faut-il une montre GPS ?</summary><p>Non, ton téléphone suffit. L'appli mesure ta boucle avec son GPS, même écran éteint.</p></details>
+      <details><summary>À partir de quel âge ?</summary><p>DAILYARD est ouvert à partir de 15 ans.</p></details>
+      <details><summary>Qu'est-ce que vous faites de ma position ?</summary><p>Elle ne sert qu'à mesurer ta boucle, pendant que tu utilises l'appli. Le départ et l'arrivée de tes boucles sont masqués pour les autres, et tes données ne sont jamais vendues. Tout est détaillé dans la <a href="confidentialite/">politique de confidentialité</a>.</p></details>
+      <details><summary>Quand est-ce que l'appli sort ?</summary><p>Une phase de test sur Google Play commence en décembre, et le lancement public est prévu début 2027. La version iPhone viendra ensuite.</p></details>
+    </div>
+  </div>
+</section>
+
+<section id="rejoindre" class="final">
+  <div class="wrap center">
+    <h2>Envie de faire partie des premiers ?</h2>
+    <p class="lead">On cherche des testeurs sur Android pour essayer DAILYARD avant tout le monde, pendant deux semaines. Coureurs, marcheurs, débutants : tout le monde est bienvenu.</p>
+    <div class="ctas">
+      <a class="btn btn-main" href="mailto:dailyard.running@gmail.com?subject=Je%20veux%20%C3%AAtre%20testeur%20DAILYARD">Je veux être testeur</a>
+      <a class="btn btn-ghost" href="https://www.instagram.com/dailyard/" rel="noopener">Instagram @dailyard</a>
+      <a class="btn btn-ghost" href="https://www.tiktok.com/@daily.yard.app" rel="noopener">TikTok @daily.yard.app</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <a class="logo" href="#"><i>D</i>DAILYARD</a>
+      <p style="margin-top:12px">Une boucle par jour, avant minuit.<br>Ce n'est pas un dispositif médical : DAILYARD est fait pour le bien-être et le plaisir de bouger.</p>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:dailyard.running@gmail.com">dailyard.running@gmail.com</a></li>
+        <li><a href="https://www.instagram.com/dailyard/" rel="noopener">Instagram</a></li>
+        <li><a href="https://www.tiktok.com/@daily.yard.app" rel="noopener">TikTok</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Informations légales</h4>
+      <ul>
+        <li><a href="cgu/">Conditions générales d'utilisation</a></li>
+        <li><a href="charte/">Charte de la communauté</a></li>
+        <li><a href="confidentialite/">Politique de confidentialité</a></li>
+        <li><a href="mentions-legales/">Mentions légales</a></li>
+        <li><a href="suppression/">Supprimer mon compte</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
