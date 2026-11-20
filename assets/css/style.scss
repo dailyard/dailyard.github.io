@@ -1,0 +1,13 @@
+---
+---
+
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap');
+@import "{{ site.theme }}";
+
+body { background: #E5DAC3; color: #14110C; }
+h1, h2, h3, header h1 { font-family: 'Abril Fatface', serif; color: #14110C; font-weight: 400; }
+a { color: #14110C; text-decoration: underline; text-decoration-color: #3CFF6B; text-decoration-thickness: 3px; }
+a:hover { background: #3CFF6B; }
+header p, footer, small { color: #4A3F2E; }
+table { background: #D8CCB2; }
+th, td { border-color: #4A3F2E; }
