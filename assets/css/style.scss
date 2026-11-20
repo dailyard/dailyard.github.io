@@ -1,13 +1,112 @@
 ---
 ---
 
-@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
 @import "{{ site.theme }}";
 
-body { background: #E5DAC3; color: #14110C; }
-h1, h2, h3, header h1 { font-family: 'Abril Fatface', serif; color: #14110C; font-weight: 400; }
-a { color: #14110C; text-decoration: underline; text-decoration-color: #3CFF6B; text-decoration-thickness: 3px; }
-a:hover { background: #3CFF6B; }
-header p, footer, small { color: #4A3F2E; }
-table { background: #D8CCB2; }
-th, td { border-color: #4A3F2E; }
+/* Thème Doux de DAILYARD */
+$fond: #FAF9F6;
+$surface: #F2F1EC;
+$encre: #2A2A28;
+$trait: #E2E0D8;
+$accent: #9ED9BE;
+$sur-accent: #1E3A2E;
+$second: #6E6C66;
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  background: $fond;
+  color: $encre;
+  font-family: 'Inter', -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.7;
+  font-weight: 400;
+  padding: 0;
+}
+
+/* Une seule colonne centrée, lisible sur ordinateur et téléphone */
+.wrapper { width: auto; max-width: 720px; margin: 0 auto; padding: 0 20px 48px; }
+header, section, footer { float: none; width: auto; position: static; }
+header {
+  padding: 28px 0 20px;
+  margin-bottom: 28px;
+  border-bottom: 1px solid $trait;
+  text-align: left;
+}
+header h1 { margin: 0 0 2px; font-size: 26px; letter-spacing: 0.04em; }
+header h1 a { text-decoration: none; background: none; }
+header p { margin: 0; color: $second; font-size: 15px; }
+header ul, header .view, header .downloads { display: none; }
+footer {
+  margin-top: 48px;
+  padding-top: 16px;
+  border-top: 1px solid $trait;
+  color: $second;
+  font-size: 13px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Inter', -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  color: $encre;
+  font-weight: 600;
+  line-height: 1.3;
+}
+section h1 { font-size: 30px; margin: 0 0 16px; }
+h2 { font-size: 21px; margin: 40px 0 12px; }
+h3 { font-size: 17px; margin: 28px 0 8px; }
+
+p, ul, ol, table { margin: 0 0 16px; }
+strong { color: $encre; font-weight: 600; }
+small { color: $second; }
+
+a {
+  color: $sur-accent;
+  font-weight: 400;
+  text-decoration: underline;
+  text-decoration-color: $accent;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+a:hover { color: $sur-accent; background: rgba(158, 217, 190, 0.35); border-radius: 4px; }
+a small { color: $second; }
+
+/* Liste des pages sur l'accueil : cartes douces */
+section > ul { padding-left: 0; list-style: none; }
+section > ul > li { margin: 0 0 10px; }
+section > ul > li > a:only-child {
+  display: block;
+  padding: 14px 18px;
+  background: $surface;
+  border: 1px solid $trait;
+  border-radius: 14px;
+  text-decoration: none;
+  font-weight: 600;
+}
+section > ul > li > a:only-child:hover { background: $accent; color: $sur-accent; }
+
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #FFFFFF;
+  border: 1px solid $trait;
+  border-radius: 14px;
+  overflow: hidden;
+  font-size: 15px;
+  display: block;
+  overflow-x: auto;
+}
+th, td { padding: 10px 14px; border: 0; border-bottom: 1px solid $trait; text-align: left; vertical-align: top; }
+th { background: $surface; color: $encre; font-weight: 600; }
+tr:last-child td { border-bottom: 0; }
+
+blockquote { border-left: 3px solid $accent; color: $second; margin: 0 0 16px; padding: 4px 0 4px 16px; }
+hr { border: 0; border-top: 1px solid $trait; margin: 32px 0; }
+code { background: $surface; border: 1px solid $trait; border-radius: 6px; padding: 1px 5px; }
+
+@media (max-width: 480px) {
+  body { font-size: 16px; }
+  section h1 { font-size: 25px; }
+  h2 { font-size: 19px; }
+}
